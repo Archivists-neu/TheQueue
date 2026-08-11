@@ -1,13 +1,14 @@
 from flask import Blueprint, request, jsonify
-from api.backend.db_connection import db
+from backend.db_connection import get_db
 
-#Genre Blueprint
+# Genre Blueprint
 genres = Blueprint("genres", __name__)
 
-#GET ALL GENRES
+
+# GET ALL GENRES
 @genres.route("/genre", methods=["GET"])
 def get_genres():
-    cursor = db.get_db().cursor(dictionary=True)
+    cursor = get_db().cursor(dictionary=True)
 
     try:
         cursor.execute("""
@@ -27,12 +28,14 @@ def get_genres():
         cursor.close()
 
 
-#ADD NEW GENRE
+# ADD NEW GENRE
 @genres.route("/genre", methods=["POST"])
 def add_genre():
-    cursor = db.get_db().cursor()
+    cursor = get_db().cursor()
+
     try:
         data = request.get_json()
+
         # Make sure a genre name was provided
         if not data or not data.get("name"):
             return jsonify({"error": "Genre name is required"}), 400
@@ -45,7 +48,7 @@ def add_genre():
             VALUES (%s, %s);
         """, (name, description))
 
-        db.get_db().commit()
+        get_db().commit()
 
         new_genre_id = cursor.lastrowid
 
@@ -57,8 +60,9 @@ def add_genre():
         }), 201
 
     except Exception as e:
-        db.get_db().rollback()
+        get_db().rollback()
         return jsonify({"error": str(e)}), 500
 
     finally:
         cursor.close()
+        

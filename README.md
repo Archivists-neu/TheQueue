@@ -1,5 +1,32 @@
 # Summer B 2026 CS 3200 Project Template
 
+
+# CHEAT SHEET
+```
+git clone <repo name> # in our case it's git clone TheQueue
+git fetch # fetches any changes from the main repo
+git pull # Pulls those changes into your local repo - usually used after fetch
+# if you are already working in a branch and change was made to main
+git fetch --origin <branch name> # fetches any changes from the main repo
+git pull --origin <branch name> # pulls the changes from main into your branch 
+# if --origin doesn't work then use
+
+git fetch origin
+# and 
+git pull origin
+
+git checkout <branch name> # switches to a branch
+git checkout -b <branch name> # creates a new branch
+
+
+# when you are ready to push
+git add . # add (.) - tt
+git commit -m "message"
+git push #pushes the changes to your branch
+
+```
+
+
 This is a template repo for Dr. Fontenot's Summer B 2026 CS 3200 Course Project.
 
 It includes most of the infrastructure setup (containers), sample databases, and example UI pages. Explore it fully and ask questions!

@@ -15,11 +15,12 @@ def about_page_nav():
     st.sidebar.page_link("pages/30_About.py", label="About", icon="🧠")
 
 
+    # --- switched to book lovers----
 # ---- Role: pol_strat_advisor ------------------------------------------------
 
 def pol_strat_home_nav():
     st.sidebar.page_link(
-        "pages/00_Pol_Strat_Home.py", label="Political Strategist Home", icon="👤"
+        "pages/book-lovers.py", label="Book Lovers Home", icon="📖"
     )
 
 

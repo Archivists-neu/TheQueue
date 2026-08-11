@@ -8,7 +8,8 @@ genres = Blueprint("genres", __name__)
 # GET ALL GENRES
 @genres.route("/genre", methods=["GET"])
 def get_genres():
-    cursor = get_db().cursor(dictionary=True)
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
 
     try:
         cursor.execute("""
@@ -31,7 +32,8 @@ def get_genres():
 # ADD NEW GENRE
 @genres.route("/genre", methods=["POST"])
 def add_genre():
-    cursor = get_db().cursor()
+    db = get_db()
+    cursor = db.cursor()
 
     try:
         data = request.get_json()
@@ -48,7 +50,7 @@ def add_genre():
             VALUES (%s, %s);
         """, (name, description))
 
-        get_db().commit()
+        db.commit()
 
         new_genre_id = cursor.lastrowid
 
@@ -60,9 +62,48 @@ def add_genre():
         }), 201
 
     except Exception as e:
-        get_db().rollback()
+        db.rollback()
         return jsonify({"error": str(e)}), 500
 
     finally:
         cursor.close()
-        
+
+
+# LINK MEDIA TO AN EXISTING GENRE
+@genres.route("/genre", methods=["PUT"])
+def link_media_to_genre():
+    db = get_db()
+    cursor = db.cursor()
+
+    try:
+        data = request.get_json()
+
+        # Make sure both IDs were provided
+        if not data or not data.get("media_id") or not data.get("genre_id"):
+            return jsonify({
+                "error": "media_id and genre_id are required"
+            }), 400
+
+        media_id = data["media_id"]
+        genre_id = data["genre_id"]
+
+        # Link existing media to existing genre
+        cursor.execute("""
+            INSERT INTO media_genre (media_id, genre_id)
+            VALUES (%s, %s);
+        """, (media_id, genre_id))
+
+        db.commit()
+
+        return jsonify({
+            "message": "Media linked to genre successfully",
+            "media_id": media_id,
+            "genre_id": genre_id
+        }), 200
+
+    except Exception as e:
+        db.rollback()
+        return jsonify({"error": str(e)}), 500
+
+    finally:
+        cursor.close()

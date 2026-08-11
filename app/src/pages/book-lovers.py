@@ -11,10 +11,10 @@ SideBarLinks()
 st.title(f"Welcome Booker Lover, {st.session_state['first_name']}.")
 st.write('### What would you like to do today?')
 
-if st.button('View Book Search',
+if st.button('View Media Search',
              type='primary',
              use_container_width=True):
-    st.switch_page('pages/book-search.py')
+    st.switch_page('pages/media-search.py')
 
 if st.button('View World Map Demo',
              type='primary',

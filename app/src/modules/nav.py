@@ -99,7 +99,7 @@ def pol_strat_home_nav():
 
 def world_bank_viz_nav():
     st.sidebar.page_link(
-        "pages/book-search.py", label="Book Search", icon="🔎"
+        "pages/media-search.py", label="Media Search", icon="🔎"
     )
 
 

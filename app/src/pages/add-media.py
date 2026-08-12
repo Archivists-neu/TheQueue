@@ -19,11 +19,11 @@ Use the form below to add a new piece of media to the database.
 with st.form("add_media_form"):
     col1, col2 = st.columns(2)
     with col1:
-        media_id = st.text_input("Media ID")
+        media_type = st.selectbox("Category", ["Book", "TV Show", "Movie", "Game"])
         title = st.text_input("Title")
         author = st.text_input("Author")
-        media_type = st.selectbox("Type", ["book", "tv", "movie", "game"])
     with col2:
+        media_id = st.text_input("Media ID")
         genre = st.text_input("Genre")
         summary = st.text_area("Summary")
 

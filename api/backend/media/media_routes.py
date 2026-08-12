@@ -6,7 +6,7 @@ from mysql.connector import Error
 media = Blueprint("media", __name__)
 
 # Adjust this set to match the actual media types allowed in your schema
-VALID_MEDIA_TYPES = {"book", "movie", "game", "music"}
+VALID_MEDIA_TYPES = {"book", "tvshow", "game", "movie"}
 
 
 def _fetch_media(where_clause, params):

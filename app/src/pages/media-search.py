@@ -40,12 +40,14 @@ with st.form("media_search_form"):
 query = st.session_state.media_search_query
 
 if query:
-    params = {"title": query["title"]}
+    criteria = {"title": query["title"]}
     if query["media_type"] != "any":
-        params["media_type"] = query["media_type"]
+        criteria["media_type"] = query["media_type"]
 
     try:
-        response = requests.get(GetMediaSearchApi(), params=params, timeout=5)
+        response = requests.get(
+            GetMediaSearchApi(**criteria), params=criteria, timeout=5
+        )
 
         if response.status_code == 200:
             results = response.json()
@@ -60,7 +62,7 @@ if query:
                     hide_index=True,
                 )
         elif response.status_code == 404:
-            st.error("Search failed (404): the /media/search endpoint does not exist yet.")
+            st.error(f"No media found matching '{query['title']}'.")
         else:
             st.error(f"Search failed ({response.status_code}): {response.text}")
 

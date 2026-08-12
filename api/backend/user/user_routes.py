@@ -17,36 +17,40 @@ updatable_fields = ["first_name", "last_name", "email", "phone", "dob",
                     "gender", "account_status", "custom_status_message", "location_id"]
 
 
-@users.route("/users", methods=["GET"])
+@users.route("", methods=["GET"])
 def get_all_users():
     cursor = get_db().cursor(dictionary=True)
     try:
-        current_app.logger.info('GET /users')
-        first_name = request.args.get("first_name")
-        last_name = request.args.get("last_name")
-        email = request.args.get("email")
-        dob = request.args.get("dob")
+        current_app.logger.info('GET /user/users')
 
         query = """
-            SELECT user_id, first_name, last_name, account_status,
-                   custom_status_message, date_account_creation, location_id
+            SELECT user_id, first_name, last_name, email, phone, dob, gender,
+                   account_status, custom_status_message,
+                   date_account_creation, location_id
             FROM user
             WHERE date_account_deletion IS NULL
         """
         params = []
 
-        if first_name:
-            query += " AND first_name = %s"
-            params.append(first_name)
-        if last_name:
-            query += " AND last_name = %s"
-            params.append(last_name)
-        if email:
-            query += " AND email = %s"
-            params.append(email)
-        if dob:
-            query += " AND dob = %s"
-            params.append(dob)
+        for field in ["first_name", "last_name", "email"]:
+            value = request.args.get(field)
+            if value:
+                query += f" AND {field} LIKE %s"
+                params.append(f"%{value}%")
+
+        name = request.args.get("name")
+        if name:
+            query += """ AND (first_name LIKE %s OR last_name LIKE %s
+                              OR CONCAT(first_name, ' ', last_name) LIKE %s)"""
+            params.extend([f"%{name}%"] * 3)
+
+        for field in ["account_status", "gender", "dob", "location_id"]:
+            value = request.args.get(field)
+            if value:
+                query += f" AND {field} = %s"
+                params.append(value)
+
+        query += " ORDER BY last_name, first_name"
 
         cursor.execute(query, params)
         user_list = cursor.fetchall()
@@ -61,15 +65,17 @@ def get_all_users():
 
 
 
-@users.route("/users", methods=["POST"])
+@users.route("", methods=["POST"])
 def create_user():
     cursor = get_db().cursor(dictionary=True)
     try:
         current_app.logger.info('POST /user/users')
 
+        # A JSON array or bare string parses fine but has no fields to read,
+        # so require an object before indexing into it.
         data = request.get_json(silent=True)
-        if data is None:
-            return jsonify({"error": "Request body must be valid JSON"}), 400
+        if not isinstance(data, dict):
+            return jsonify({"error": "Request body must be a JSON object"}), 400
 
         for field in required_fields:
             if field not in data:
@@ -106,16 +112,15 @@ def create_user():
 
 
 
-
-@users.route("/users/<int:user_id>", methods=["PUT"])
+@users.route("/<int:user_id>", methods=["PUT"])
 def update_user(user_id):
     cursor = get_db().cursor(dictionary=True)
     try:
         current_app.logger.info(f'PUT /user/users/{user_id}')
 
         data = request.get_json(silent=True)
-        if data is None:
-            return jsonify({"error": "Request body must be valid JSON"}), 400
+        if not isinstance(data, dict):
+            return jsonify({"error": "Request body must be a JSON object"}), 400
 
         cursor.execute("SELECT user_id FROM user WHERE user_id = %s", (user_id,))
         if not cursor.fetchone():

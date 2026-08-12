@@ -1,5 +1,59 @@
 # Summer B 2026 CS 3200 Project Template
 
+
+# CHEAT SHEET
+
+<details>
+    <summary>Commiting (click me)</summary>
+    <pre>
+        <code>
+            git add . # '.' adds 'all' files  
+            #if you need to see commands, just run 
+            git add -h
+            # after you've added files run...
+            git commit -m "message"
+            # then you can push!
+            git push #pushes the changes to your branch
+        </code>
+    </pre>
+
+</details>
+<details>
+    <summary>Grabbing changes (click me)</summary>
+    <pre>
+        <code>
+            git fetch # fetches any changes from the main repo
+            git pull # Pulls those changes into your local repo - usually used after fetch
+            # if you are already working in a branch and change was made to main
+            git fetch --origin <branch name> # fetches any changes from the main repo
+            git pull --origin <branch name> # pulls the changes from main into your branch 
+            # if --origin doesn't work then use
+            git fetch origin
+            # and 
+            git pull origin
+        </code>
+    </pre>
+
+</details>
+
+<details>
+    <summary>making a new branch (click me)</summary>
+    <pre>
+        <code>
+            git checkout -b <branch name> # creates a new branch
+            # if you already have a branch - here is how you switch between
+            git checkout <branch name> # switches to a branch
+        </code>
+    </pre>
+    <h3>Making a branch from github</h3>
+    <img src="./docs/making_branch.gif" />
+</details>
+
+
+
+
+-----
+
 This is a template repo for Dr. Fontenot's Summer B 2026 CS 3200 Course Project.
 
 It includes most of the infrastructure setup (containers), sample databases, and example UI pages. Explore it fully and ask questions!

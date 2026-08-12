@@ -150,17 +150,18 @@ INSERT INTO user (user_uuid,first_name,last_name,email,phone,dob,gender,
 
 INSERT INTO genre (name, description)
     VALUES ('Fantasy', 'Stories containing magical or supernatural elements.'),
-           ('Science Fiction', 'Stories involving futuristic science and 
- technology.'),
+           ('Science Fiction', 'Stories involving futuristic science and technology.'),
            ('Mystery', 'Stories centered around solving mysteries or crimes.');
 
 INSERT INTO media (media_type,title,summary,release_date)
     VALUES ('book','The Hobbit','A hobbit embarks on an unexpected adventure.',
             '1937-09-21'),
-           ('movie','Interstellar','Explorers travel through space in search of
-            a new home for humanity.','2014-11-07'),
-           ('game','The Legend of Zelda: Breath of the Wild','An open-world
-            adventure through the kingdom of Hyrule.','2017-03-03');
+           ('movie','Interstellar',
+            'Explorers travel through space in search of a new home for humanity.',
+            '2014-11-07'),
+           ('game','The Legend of Zelda: Breath of the Wild',
+            'An open-world adventure through the kingdom of Hyrule.',
+            '2017-03-03');
 
 INSERT INTO media_genre
     VALUES (1, 1),
@@ -178,9 +179,9 @@ INSERT INTO review (review_comment,likes,review_date,user_id,media_id,location_i
 INSERT INTO comment (comment_message,likes,comment_date,user_id,review_id)
     VALUES ('I loved this book too!',4,'2026-05-02 20:00:00',2,1),
            ('The soundtrack is definitely my favorite part.',7,
- '2026-05-04 22:10:00',1,2),
+            '2026-05-04 22:10:00',1,2),
            ('I spent way too many hours exploring Hyrule.',5,
- '2026-05-07 18:00:00',1,3);
+            '2026-05-07 18:00:00',1,3);
 
 INSERT INTO friendship (requester_id,addressee_id,status,date_requested,date_accepted)
     VALUES (1,2,'accepted','2026-03-01 12:00:00','2026-03-01 15:30:00'),

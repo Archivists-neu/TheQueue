@@ -19,7 +19,7 @@ def _fetch_media(where_clause, params):
         cursor.close()
 
 
-@media.route("/media", methods=["GET"])
+@media.route("", methods=["GET"])
 def get_all_media():
     cursor = get_db().cursor(dictionary=True)
     try:
@@ -62,7 +62,7 @@ def get_all_media():
 
 
 # Get a single piece of media by its id
-@media.route("/media/<int:media_id>", methods=["GET"])
+@media.route("/<int:media_id>", methods=["GET"])
 def get_media_by_id(media_id):
     try:
         current_app.logger.info(f'GET /media/{media_id}')
@@ -79,7 +79,7 @@ def get_media_by_id(media_id):
 
 
 # Searching for media by type (aka only books, only games etc.)
-@media.route("/media/type/<string:media_type>", methods=["GET"])
+@media.route("/type/<string:media_type>", methods=["GET"])
 def get_media_by_type(media_type):
     try:
         current_app.logger.info(f'GET /media/type/{media_type}')
@@ -93,7 +93,7 @@ def get_media_by_type(media_type):
 
 
 # Searching by author name
-@media.route("/media/author/<string:author_name>", methods=["GET"])
+@media.route("/author/<string:author_name>", methods=["GET"])
 def get_media_by_author(author_name):
     try:
         current_app.logger.info(f'GET /media/author/{author_name}')
@@ -107,7 +107,7 @@ def get_media_by_author(author_name):
 
 
 # Searching by title/name of media piece
-@media.route("/media/title/<string:title_name>", methods=["GET"])
+@media.route("/title/<string:title_name>", methods=["GET"])
 def get_media_by_title(title_name):
     try:
         current_app.logger.info(f'GET /media/title/{title_name}')
@@ -121,7 +121,7 @@ def get_media_by_title(title_name):
 
 
 # deleting a piece of media in case of duplicates or non-relevent types
-@media.route("/media/<int:media_id>", methods=["DELETE"])
+@media.route("/<int:media_id>", methods=["DELETE"])
 def delete_media(media_id):
     cursor = get_db().cursor(dictionary=True)
     try:
@@ -149,7 +149,7 @@ def delete_media(media_id):
 
 
 # Editing an existing piece of media
-@media.route("/media/<int:media_id>", methods=["PUT"])
+@media.route("/<int:media_id>", methods=["PUT"])
 def update_media(media_id):
     cursor = get_db().cursor(dictionary=True)
     try:
@@ -206,7 +206,7 @@ def update_media(media_id):
 
 
 # Adding a new piece of media 
-@media.route("/media", methods=["POST"])
+@media.route("", methods=["POST"])
 def add_media():
     cursor = get_db().cursor(dictionary=True)
     try:

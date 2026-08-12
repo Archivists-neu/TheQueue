@@ -4,7 +4,7 @@ logger = logging.getLogger(__name__)
 import streamlit as st
 import requests
 from modules.nav import SideBarLinks
-from shared.apifuncs import GetMediaSearchApi
+from shared.apifuncs import GetMediaApi
 
 st.set_page_config(layout='wide')
 
@@ -44,7 +44,7 @@ if submitted:
             new_media["media_id"] = media_id
 
     try:
-        response = requests.post(GetMediaSearchApi(), json=new_media)
+        response = requests.post(GetMediaApi(), json=new_media)
 
         if response.status_code == 201:
             st.success(f"Successfully added '{title}' to the database!")
@@ -61,7 +61,7 @@ st.write("### All Media")
 
 data = {}
 try:
-    data = requests.get(GetMediaSearchApi()).json()
+    data = requests.get(GetMediaApi()).json()
 except requests.exceptions.RequestException as e:
     st.write("**Important**: Could not connect to sample API, so using dummy data.")
     data = {}

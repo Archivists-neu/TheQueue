@@ -105,36 +105,17 @@ def map_demo_nav():
     st.sidebar.page_link("pages/02_Map_Demo.py", label="Map Demonstration", icon="🗺️")
 
 
-# ---- Role: usaid_worker -----------------------------------------------------
+# ---- Role: data analyst -----------------------------------------------------
 
-def usaid_worker_home_nav():
+def analyst_overview_nav():
     st.sidebar.page_link(
-        "pages/10_USAID_Worker_Home.py", label="USAID Worker Home", icon="🏠"
+        "pages/analyst.py", label="Analytics Overview", icon="📊"
     )
 
 
-def ngo_directory_nav():
-    st.sidebar.page_link("pages/14_NGO_Directory.py", label="NGO Directory", icon="📁")
+def performance_nav():
+    st.sidebar.page_link("pages/analyst_dashboard.py", label="Performance Dashboard", icon="📈")
 
-
-def add_ngo_nav():
-    st.sidebar.page_link("pages/15_Add_NGO.py", label="Add New NGO", icon="➕")
-
-
-def prediction_nav():
-    st.sidebar.page_link(
-        "pages/11_Prediction.py", label="Regression Prediction", icon="📈"
-    )
-
-
-def api_test_nav():
-    st.sidebar.page_link("pages/12_API_Test.py", label="Test the API", icon="🛜")
-
-
-def classification_nav():
-    st.sidebar.page_link(
-        "pages/13_Classification.py", label="Classification Demo", icon="🌺"
-    )
 
     # --- Kept as System Admin ------
 # ---- Role: administrator ----------------------------------------------------
@@ -176,13 +157,9 @@ def SideBarLinks(show_home=False):
             friend_search_nav()
             map_demo_nav()
 
-        if st.session_state["role"] == "usaid_worker":
-            usaid_worker_home_nav()
-            ngo_directory_nav()
-            add_ngo_nav()
-            prediction_nav()
-            api_test_nav()
-            classification_nav()
+        if st.session_state["role"] == "analyst":
+            analyst_overview_nav()
+            performance_nav()
 
         if st.session_state["role"] == "administrator":
             admin_home_nav()

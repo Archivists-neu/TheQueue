@@ -148,7 +148,6 @@ def ml_model_mgmt_nav():
         "pages/21_ML_Model_Mgmt.py", label="ML Model Management", icon="🏢"
     )
 
-
 # ---- Sidebar assembly -------------------------------------------------------
 
 def SideBarLinks(show_home=False):

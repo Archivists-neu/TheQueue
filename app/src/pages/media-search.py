@@ -5,8 +5,8 @@ import pandas as pd
 import requests
 import streamlit as st
 from modules.nav import SideBarLinks
+from shared.apifuncs import GetMediaSearchApi
 
-API_URL = "http://web-api:4000/media/search"
 
 
 st.set_page_config(layout='wide')
@@ -45,7 +45,7 @@ if query:
         params["media_type"] = query["media_type"]
 
     try:
-        response = requests.get(API_URL, params=params, timeout=5)
+        response = requests.get(GetMediaSearchApi(), params=params, timeout=5)
 
         if response.status_code == 200:
             results = response.json()

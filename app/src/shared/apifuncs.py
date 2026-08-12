@@ -4,4 +4,6 @@ def GetApiRoute(routLink: str) -> str:
 def GetUsersApi() -> str:
     return GetApiRoute("user/users")
 
+def GetMediaSearchApi() -> str:
+    return GetApiRoute("media/search")
 

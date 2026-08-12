@@ -5,7 +5,80 @@
 import streamlit as st
 
 
-# ---- General ----------------------------------------------------------------
+def load_nav_css():
+    st.markdown(
+        """
+        <style>
+        [data-testid="stSidebar"] {
+            background-color: #171922;
+            border-right: 1px solid #2d3040;
+        }
+        [data-testid="stVerticalBlock"] {
+            display: flex;
+            align-items: center;
+        }
+
+        [data-testid="stSidebarContent"] {
+            padding: 1.25rem 0.75rem;
+        }
+
+        [data-testid="stSidebar"] [data-testid="stPageLink"] {
+            margin-bottom: 0.35rem;
+        }
+
+        [data-testid="stSidebar"] [data-testid="stPageLink"] a {
+            padding: 0.7rem 0.85rem;
+            border-radius: 10px;
+            color: #d9dbe7;
+            text-decoration: none;
+            transition:
+                background-color 150ms ease,
+                color 150ms ease,
+                transform 150ms ease;
+        }
+
+        [data-testid="stSidebar"] [data-testid="stPageLink"] a:hover {
+            background-color: #282c3d;
+            color: #ffffff;
+            transform: translateX(3px);
+        }
+
+        [data-testid="stSidebar"]
+        [data-testid="stPageLink"] a[aria-current="page"] {
+            background-color: #6c63ff;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        [data-testid="stSidebar"] [data-testid="stButton"] button {
+            width: 100%;
+            margin-top: 1rem;
+            border: 1px solid #6c63ff;
+            border-radius: 10px;
+            background-color: transparent;
+            color: #ffffff;
+            transition: background-color 150ms ease;
+        }
+
+        [data-testid="stSidebar"] [data-testid="stButton"] img {
+            width: 100%;
+            margin-top: 1rem;
+            border: 1px solid #6c63ff;
+            border-radius: 10px;
+            background-color: transparent;
+            color: #ffffff;
+            transition: background-color 150ms ease;
+        }
+
+        [data-testid="stSidebar"] [data-testid="stButton"] button:hover {
+            background-color: #6c63ff;
+            color: #ffffff;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,)
+
+    # ---- General ----------------------------------------------------------------
 
 def home_nav():
     st.sidebar.page_link("Home.py", label="Home", icon="🏠")
@@ -15,19 +88,18 @@ def about_page_nav():
     st.sidebar.page_link("pages/30_About.py", label="About", icon="🧠")
 
 
+    # --- switched to book lovers----
 # ---- Role: pol_strat_advisor ------------------------------------------------
 
-def pol_strat_home_nav():
-    st.sidebar.page_link(
-        "pages/00_Pol_Strat_Home.py", label="Political Strategist Home", icon="👤"
-    )
+def book_lover_home_nav():
+    st.sidebar.page_link("pages/book-lovers.py", label="Home", icon="📚")
 
 
-def world_bank_viz_nav():
-    st.sidebar.page_link(
-        "pages/01_World_Bank_Viz.py", label="World Bank Visualization", icon="🏦"
-    )
+def media_search_nav():
+    st.sidebar.page_link("pages/media-search.py", label="Media Search", icon="🔎")
 
+def friend_search_nav():
+    st.sidebar.page_link("pages/friend-search.py", label="Friend Search", icon="🫂")
 
 def map_demo_nav():
     st.sidebar.page_link("pages/02_Map_Demo.py", label="Map Demonstration", icon="🗺️")
@@ -76,17 +148,17 @@ def ml_model_mgmt_nav():
         "pages/21_ML_Model_Mgmt.py", label="ML Model Management", icon="🏢"
     )
 
-
 # ---- Sidebar assembly -------------------------------------------------------
 
 def SideBarLinks(show_home=False):
+    load_nav_css()
     """
     Renders sidebar navigation links based on the logged-in user's role.
     The role is stored in st.session_state when the user logs in on Home.py.
     """
 
     # Logo appears at the top of the sidebar on every page
-    st.sidebar.image("assets/logo.png", width=150)
+    st.sidebar.image("assets/the-queue-logo.png", width=150)
 
     # If no one is logged in, send them to the Home (login) page
     if "authenticated" not in st.session_state:
@@ -98,9 +170,10 @@ def SideBarLinks(show_home=False):
 
     if st.session_state["authenticated"]:
 
-        if st.session_state["role"] == "pol_strat_advisor":
-            pol_strat_home_nav()
-            world_bank_viz_nav()
+        if st.session_state["role"] == "book_lover":
+            book_lover_home_nav()
+            media_search_nav()
+            friend_search_nav()
             map_demo_nav()
 
         if st.session_state["role"] == "usaid_worker":

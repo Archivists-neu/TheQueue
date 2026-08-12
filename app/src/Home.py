@@ -40,20 +40,14 @@ st.write('#### Hi! As which user would you like to log in?')
 # functionality, we put a button on the screen that the user
 # can click to MIMIC logging in as that mock user.
 
-if st.button("Act as John, a Political Strategy Advisor",
-             type='primary',
-             use_container_width=True):
-    # when user clicks the button, they are now considered authenticated
+if st.button("Act persona Sam, The Book lover", type='primary', use_container_width=True):
     st.session_state['authenticated'] = True
-    # we set the role of the current user
-    st.session_state['role'] = 'pol_strat_advisor'
-    # we add the first name of the user (so it can be displayed on
-    # subsequent pages).
-    st.session_state['first_name'] = 'John'
-    # finally, we ask streamlit to switch to another page, in this case, the
-    # landing page for this particular user type
-    logger.info("Logging in as Political Strategy Advisor Persona")
-    st.switch_page('pages/00_Pol_Strat_Home.py')
+    st.session_state['role'] = 'book_lover'
+    st.session_state['first_name'] = 'Sam'
+    logger.info("Logging in as Book Lover Persona")
+    # make it so when the user clicks the button - we send through Create workflow -> create user -> send to book-lovers.py from create
+    # st.switch_page('pages/book-lovers.py')
+    st.switch_page('pages/create-user.py')
 
 if st.button('Act as Mohammad, a USAID Worker',
              type='primary',

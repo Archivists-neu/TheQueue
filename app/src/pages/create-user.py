@@ -9,9 +9,6 @@ SideBarLinks()
 
 st.title("Create Your User")
 
-required_fields = ["first_name", "last_name", "email", "date_account_creation", "location_id"]
-updatable_fields = ["first_name", "last_name", "email", "phone", "dob", "gender", "account_status", "custom_status_message", "location_id"]
-
 if "show_success_modal" not in st.session_state:
     st.session_state.show_success_modal = False
 if "success_user_name" not in st.session_state:

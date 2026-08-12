@@ -5,16 +5,29 @@ st.set_page_config(layout='wide')
 
 SideBarLinks()
 
-st.write("# About this App")
+st.write("# About The Queue")
 
 st.markdown(
     """
-    This is a demo app for the CS 3200 Summer B 2026 Database Design Project Course.  
+    *CS 3200 · Summer B 2026 · Database Design Project*
 
-    The goal of this demo is to provide information on the tech stack 
-    being used as well as demo some of the features of the various platforms. 
+    ---
 
-    Stay tuned for more information and features to come!
+    ### All Stories. One Place.
+
+    The Queue brings movies, TV shows, books, and games together in one social platform where users can rate, review, discover, and organize the stories they love.
+
+    Rather than relying on engagement-driven recommendations, The Queue puts users in control by providing personalized suggestions based on their interests and the people they trust.
+
+    By connecting different forms of media, the platform makes it easy to discover new favorites, build personalized queues and rankings, share opinions, and connect with others who have similar interests.
+
+    ---
+
+    ### About This Demo
+
+    This demo showcases the technology stack behind The Queue and highlights features of the various platforms used to build it.
+
+    **Stay tuned for more features to come!**
     """
 )
 

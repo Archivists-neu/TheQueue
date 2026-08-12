@@ -43,17 +43,17 @@ if submitted:
         if media_id:
             new_media["media_id"] = media_id
 
-        try:
-            response = requests.post(GetMediaSearchApi(), json=new_media)
+    try:
+        response = requests.post(GetMediaSearchApi(), json=new_media)
 
-            if response.status_code == 201:
-                st.success(f"Successfully added '{title}' to the database!")
-                st.json(response.json())
-            else:
-                st.error(f"Failed to add media: {response.json().get('error', 'Unknown error')}")
-        except requests.exceptions.RequestException as e:
-            st.error("Could not connect to the API to add media.")
-            logger.error(f"Error adding media: {e}")
+        if response.status_code == 201:
+            st.success(f"Successfully added '{title}' to the database!")
+            st.json(response.json())
+        else:
+            st.error(f"Failed to add media: {response.json().get('error', 'Unknown error')}")
+    except requests.exceptions.RequestException as e:
+        st.error("Could not connect to the API to add media.")
+        logger.error(f"Error adding media: {e}")
 
 st.divider()
 

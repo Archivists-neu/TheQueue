@@ -4,6 +4,7 @@ logger = logging.getLogger(__name__)
 import streamlit as st
 import requests
 from modules.nav import SideBarLinks
+from shared.apifuncs import GetUsersApi
 
 st.set_page_config(layout='wide')
 
@@ -19,7 +20,7 @@ If the container isn't running, this page will fall back to dummy data.
 
 data = {}
 try:
-    data = requests.get('http://web-api:4000/user/users').json()
+    data = requests.get(GetUsersApi()).json()
 except requests.exceptions.RequestException as e:
     st.write("**Important**: Could not connect to sample API, so using dummy data.")
     data = {}

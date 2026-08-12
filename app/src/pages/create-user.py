@@ -2,6 +2,7 @@ import datetime
 import streamlit as st
 import requests
 from modules.nav import SideBarLinks
+from shared.apifuncs import GetUsersApi 
 
 st.set_page_config(layout='wide')
 
@@ -18,7 +19,6 @@ if "reset_form" not in st.session_state:
 if "form_key_counter" not in st.session_state:
     st.session_state.form_key_counter = 0
 
-# Define the success dialog function
 @st.dialog("Success")
 def show_success_dialog(user_name):
     st.markdown(f"### {user_name} has been successfully added to the system!")
@@ -38,15 +38,12 @@ def show_success_dialog(user_name):
             st.session_state.reset_form = True
             st.rerun()
 
-# Handle form reset
 if st.session_state.reset_form:
     st.session_state.form_key_counter += 1
     st.session_state.reset_form = False
 
-# API endpoint
-API_URL = "http://web-api:4000/user/users"
+API_URL = GetUsersApi()
 
-# Create a form for NGO details with dynamic key to force reset
 with st.form(f"add_ngo_form_{st.session_state.form_key_counter}"):
     st.subheader("User Information")
 

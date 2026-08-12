@@ -1,7 +1,8 @@
 import datetime
 import streamlit as st
 import requests
-from modules.nav import SideBarLinks
+from modules.nav import SideBarLinks 
+from modules.nav import GetApiRoute 
 
 st.set_page_config(layout='wide')
 

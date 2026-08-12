@@ -7,7 +7,7 @@ from backend.db_connection import init_app as init_db
 from backend.simple.simple_routes import simple_routes
 from backend.user.user_routes import users
 from backend.review.review_routes import reviews
-from api.backend.recommendation.recommendation_routes import recommendations
+from backend.recommendation.recommendation_routes import recommendations
 from backend.ngos.ngo_routes import ngos
 from backend.friendship.friendship_routes import friendships
 

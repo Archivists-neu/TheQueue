@@ -8,6 +8,7 @@ from backend.simple.simple_routes import simple_routes
 from backend.user.user_routes import users
 from backend.review.review_routes import reviews
 from backend.recommendation.recommendation_routes import recommendations
+from backend.media.media_routes import media
 from backend.ngos.ngo_routes import ngos
 from backend.friendship.friendship_routes import friendships
 from backend.genre.genre_routes import genres

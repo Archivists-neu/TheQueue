@@ -145,7 +145,12 @@ def admin_home_nav():
 
 def ml_model_mgmt_nav():
     st.sidebar.page_link(
-        "pages/21_ML_Model_Mgmt.py", label="ML Model Management", icon="🏢"
+        "pages/user-search.py", label="User Search", icon="🔎"
+    )
+
+def add_new_media_nav():
+    st.sidebar.page_link(
+        "pages/add-media.py", label="Add New Media", icon="📖"
     )
 
 # ---- Sidebar assembly -------------------------------------------------------

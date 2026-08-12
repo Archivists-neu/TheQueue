@@ -1,20 +1,25 @@
-
 # Taylor - Software Developer Home Page
+
 import logging
 import streamlit as st
 from modules.nav import SideBarLinks
 
+
 # Set up logging
 logger = logging.getLogger(__name__)
+
 
 # Configure the Streamlit page
 st.set_page_config(layout='wide')
 
+
 # Display sidebar navigation
 SideBarLinks(show_home=True)
 
+
 # Page title
 st.title("Software Developer Dashboard")
+
 
 # Welcome Taylor
 st.write("### Welcome, Taylor!")
@@ -22,9 +27,11 @@ st.write("Manage and monitor The Queue's application features.")
 
 logger.info("Loading Taylor's Software Developer Home Page")
 
+
 # SOFTWARE DEVELOPER FEATURES
 
 st.write("## Developer Tools")
+
 
 # Feature 1
 st.write("### Recommendation Algorithm")

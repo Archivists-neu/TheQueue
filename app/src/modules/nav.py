@@ -93,7 +93,7 @@ def about_page_nav():
 
 def pol_strat_home_nav():
     st.sidebar.page_link(
-        "pages/book-lovers.py", label="Book Lovers Home", icon="📖"
+        "pages/book-lovers.py", label="Home", icon="📖"
     )
 
 

@@ -91,17 +91,21 @@ def about_page_nav():
     # --- switched to book lovers----
 # ---- Role: pol_strat_advisor ------------------------------------------------
 
-def pol_strat_home_nav():
+def book_lover_home_nav():
     st.sidebar.page_link(
         "pages/book-lovers.py", label="Home", icon="📖"
     )
 
 
-def world_bank_viz_nav():
+def media_search_nav():
     st.sidebar.page_link(
         "pages/media-search.py", label="Media Search", icon="🔎"
     )
 
+def friend_search_nav():
+    st.sidebar.page_link(
+        "pages/friend-search.py", label="Friend Search", icon="🫂"
+    )
 
 def map_demo_nav():
     st.sidebar.page_link("pages/02_Map_Demo.py", label="Map Demonstration", icon="🗺️")
@@ -174,8 +178,9 @@ def SideBarLinks(show_home=False):
     if st.session_state["authenticated"]:
 
         if st.session_state["role"] == "book_lover":
-            pol_strat_home_nav()
-            world_bank_viz_nav()
+            book_lover_home_nav()
+            media_search_nav()
+            friend_search_nav()
             map_demo_nav()
 
         if st.session_state["role"] == "usaid_worker":

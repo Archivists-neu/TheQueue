@@ -49,13 +49,13 @@ if st.button("Act persona Sam, The Book lover", type='primary', use_container_wi
     # st.switch_page('pages/book-lovers.py')
     st.switch_page('pages/create-user.py')
 
-if st.button('Act as Mohammad, a USAID Worker',
+if st.button('Act as Taylor, the Software Developer',
              type='primary',
              use_container_width=True):
     st.session_state['authenticated'] = True
-    st.session_state['role'] = 'usaid_worker'
-    st.session_state['first_name'] = 'Mohammad'
-    st.switch_page('pages/10_USAID_Worker_Home.py')
+    st.session_state['role'] = 'software_developer'
+    st.session_state['first_name'] = 'Taylor'
+    st.switch_page('pages/10_Software_Developer_Home.py')
 
 if st.button('Act as Morgan, System Administrator',
              type='primary',

@@ -143,7 +143,7 @@ def admin_home_nav():
     st.sidebar.page_link("pages/system-admin.py", label="System Admin", icon="🖥️")
 
 
-def ml_model_mgmt_nav():
+def user_search_nav():
     st.sidebar.page_link(
         "pages/user-search.py", label="User Search", icon="🔎"
     )
@@ -191,7 +191,8 @@ def SideBarLinks(show_home=False):
 
         if st.session_state["role"] == "administrator":
             admin_home_nav()
-            ml_model_mgmt_nav()
+            user_search_nav()
+            add_new_media_nav()
 
     # About link appears at the bottom for all roles
     about_page_nav()

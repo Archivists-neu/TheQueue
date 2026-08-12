@@ -6,6 +6,8 @@ import logging
 from backend.db_connection import init_app as init_db
 from backend.simple.simple_routes import simple_routes
 from backend.user.user_routes import users
+from backend.review.review_routes import reviews
+from api.backend.recommendation.recommendation_routes import recommendations
 from backend.ngos.ngo_routes import ngos
 from backend.friendship.friendship_routes import friendships
 
@@ -41,5 +43,7 @@ def create_app():
     app.register_blueprint(ngos, url_prefix="/ngo")
     app.register_blueprint(users, url_prefix="/user")
     app.register_blueprint(friendships, url_prefix="/friendship")
+    app.register_blueprint(reviews, url_prefix="/review")
+    app.register_blueprint(recommendations, url_prefix="/recommendation")
 
     return app

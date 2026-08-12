@@ -13,20 +13,18 @@ SideBarLinks()
 st.write("# User Search")
 
 st.write("""
-Search for users by name, email, or role. All users in the database are
+Search for users by name, or email. All users in the database are
 listed in the table below the search results.
 """)
 
 # --- Search form ---
 with st.form("user_search_form"):
-    col1, col2, col3 = st.columns(3)
+    col1, col2 = st.columns(2)
     with col1:
         name = st.text_input("Name")
     with col2:
         email = st.text_input("Email")
-    with col3:
-        role = st.text_input("Role")
-
+    
     submitted = st.form_submit_button("Search")
 
 if submitted:
@@ -35,8 +33,7 @@ if submitted:
         params["name"] = name
     if email:
         params["email"] = email
-    if role:
-        params["role"] = role
+   
 
     try:
         response = requests.get(GetUsersApi(), params=params)

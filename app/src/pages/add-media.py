@@ -22,6 +22,7 @@ with st.form("add_media_form"):
         media_id = st.text_input("Media ID")
         title = st.text_input("Title")
         author = st.text_input("Author")
+        media_type = st.selectbox("Type", ["book", "tv", "movie", "game"])
     with col2:
         genre = st.text_input("Genre")
         summary = st.text_area("Summary")
@@ -35,7 +36,8 @@ if submitted:
         new_media = {
             "title": title,
             "author": author,
-            "media_type": genre,
+            "media_type": media_type,
+            "genre": genre,
             "summary": summary,
         }
         if media_id:

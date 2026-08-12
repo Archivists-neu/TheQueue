@@ -9,6 +9,7 @@ from backend.user.user_routes import users
 from backend.review.review_routes import reviews
 from api.backend.recommendation.recommendation_routes import recommendations
 from backend.ngos.ngo_routes import ngos
+from backend.genre.genre_routes import genres
 
 
 def create_app():
@@ -43,5 +44,8 @@ def create_app():
     app.register_blueprint(users, url_prefix="/user")
     app.register_blueprint(reviews, url_prefix="/review")
     app.register_blueprint(recommendations, url_prefix="/recommendation")
+
+    # Genre routes
+    app.register_blueprint(genres)
 
     return app

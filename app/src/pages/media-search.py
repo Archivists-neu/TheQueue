@@ -6,43 +6,15 @@ import requests
 import streamlit as st
 from modules.nav import SideBarLinks
 
-# Endpoint your partner is building. Expected response: JSON list of media rows.
 API_URL = "http://web-api:4000/media/search"
-
-
-def style_return_button():
-    st.markdown("""
-    <style>
-    [data-testid="stButton"] button {
-        background-color: transparent;
-        color: #000;
-        border-radius: 10px;
-        border: 1px solid #000;
-        padding: 10px 20px;
-        font-size: 16px;
-        cursor: pointer;
-        display: flex;
-        justify-content: start;
-
-    }
-    </style>
-    """, unsafe_allow_html=True)
 
 
 st.set_page_config(layout='wide')
 
-# Call the SideBarLinks from the nav module in the modules directory
 SideBarLinks()
-
-style_return_button()
-
-# set the header of the page
 st.header('Media Search')
-
-# You can access the session state to make a more customized/personalized app experience
 st.write(f"### Hi, {st.session_state.get('first_name', 'there')}.")
 
-# Remembers the last search across reruns so the results stay on screen
 if "media_search_query" not in st.session_state:
     st.session_state.media_search_query = None
 
@@ -65,7 +37,6 @@ with st.form("media_search_form"):
                 "media_type": media_type,
             }
 
-# Results are rendered outside the form so they survive the rerun
 query = st.session_state.media_search_query
 
 if query:
@@ -98,5 +69,5 @@ if query:
         st.error(f"Error connecting to the API: {str(e)}")
         st.info("Please ensure the API server is running")
 
-if st.button("Return Home"):
+if st.button("← Home"):
     st.switch_page("pages/book-lovers.py")

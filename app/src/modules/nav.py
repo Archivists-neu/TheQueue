@@ -92,20 +92,14 @@ def about_page_nav():
 # ---- Role: pol_strat_advisor ------------------------------------------------
 
 def book_lover_home_nav():
-    st.sidebar.page_link(
-        "pages/book-lovers.py", label="Home", icon="📖"
-    )
+    st.sidebar.page_link("pages/book-lovers.py", label="Home", icon="📚")
 
 
 def media_search_nav():
-    st.sidebar.page_link(
-        "pages/media-search.py", label="Media Search", icon="🔎"
-    )
+    st.sidebar.page_link("pages/media-search.py", label="Media Search", icon="🔎")
 
 def friend_search_nav():
-    st.sidebar.page_link(
-        "pages/friend-search.py", label="Friend Search", icon="🫂"
-    )
+    st.sidebar.page_link("pages/friend-search.py", label="Friend Search", icon="🫂")
 
 def map_demo_nav():
     st.sidebar.page_link("pages/02_Map_Demo.py", label="Map Demonstration", icon="🗺️")
@@ -165,7 +159,7 @@ def SideBarLinks(show_home=False):
     """
 
     # Logo appears at the top of the sidebar on every page
-    st.sidebar.image("assets/logo.png", width=150)
+    st.sidebar.image("assets/the-queue-logo.png", width=150)
 
     # If no one is logged in, send them to the Home (login) page
     if "authenticated" not in st.session_state:

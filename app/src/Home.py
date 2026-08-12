@@ -45,7 +45,9 @@ if st.button("Act as Sam, The Book lover", type='primary', use_container_width=T
     st.session_state['role'] = 'book_lover'
     st.session_state['first_name'] = 'Sam'
     logger.info("Logging in as Book Lover Persona")
-    st.switch_page('pages/book-lovers.py')
+    # make it so when the user clicks the button - we send through Create workflow -> create user -> send to book-lovers.py from create
+    # st.switch_page('pages/book-lovers.py')
+    st.switch_page('pages/create-user.py')
 
 if st.button('Act as Mohammad, a USAID Worker',
              type='primary',

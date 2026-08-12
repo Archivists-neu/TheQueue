@@ -7,6 +7,7 @@ from backend.db_connection import init_app as init_db
 from backend.simple.simple_routes import simple_routes
 from backend.user.user_routes import users
 from backend.ngos.ngo_routes import ngos
+from backend.friendship.friendship_routes import friendships
 
 
 def create_app():
@@ -39,5 +40,6 @@ def create_app():
     app.register_blueprint(simple_routes)
     app.register_blueprint(ngos, url_prefix="/ngo")
     app.register_blueprint(users, url_prefix="/user")
+    app.register_blueprint(friendships, url_prefix="/friendship")
 
     return app

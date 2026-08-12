@@ -25,3 +25,7 @@ except requests.exceptions.RequestException as e:
     data = {}
 
 st.dataframe(data)
+
+if st.button("← Home"):
+    st.switch_page("pages/book-lovers.py")
+    

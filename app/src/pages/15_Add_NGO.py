@@ -50,7 +50,7 @@ if st.session_state.reset_form:
 API_URL = "http://web-api:4000/ngo/ngos"
 
 # Create a form for NGO details with dynamic key to force reset
-with st.form(f"add_ngo_form_{st.session_state}"):
+with st.form(f"add_ngo_form_{st.session_state.form_key_counter}"):
     st.subheader("NGO Information")
 
     # Required fields

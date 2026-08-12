@@ -136,11 +136,11 @@ def classification_nav():
         "pages/13_Classification.py", label="Classification Demo", icon="🌺"
     )
 
-
+    # --- Kept as System Admin ------
 # ---- Role: administrator ----------------------------------------------------
 
 def admin_home_nav():
-    st.sidebar.page_link("pages/20_Admin_Home.py", label="System Admin", icon="🖥️")
+    st.sidebar.page_link("pages/system-admin.py", label="System Admin", icon="🖥️")
 
 
 def ml_model_mgmt_nav():

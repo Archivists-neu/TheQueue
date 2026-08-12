@@ -30,41 +30,75 @@ runOnSave = true
 # Colors are hex strings. Fonts are "sans-serif", "serif", or "monospace".
 # ------------------------------------------------------------
 [theme]
+
 base = "light"
 
-# Accent color: buttons, sliders, focus rings, selected states.
-primaryColor = "#2C6E63"
+primaryColor = "#1E2F43"
+backgroundColor = "#F8F3EF"
+secondaryBackgroundColor = "#EDE7E2"
+textColor = "#1E2F43"
+linkColor = "#BD8873"
 
-# Page background and the shade used for cards, code blocks, and tables.
-backgroundColor = "#FBFAF7"
-secondaryBackgroundColor = "#F1EFE9"
-
-# Body text and links.
-textColor = "#1F2421"
-linkColor = "#2C6E63"
-
-# Serif headings against sans-serif body text keeps headings distinct
-# without needing custom CSS. Code stays monospace, where it belongs.
 font = "sans-serif"
 headingFont = "serif"
 codeFont = "monospace"
 
-# Slightly squared corners read as more deliberate than the rounded default.
-baseRadius = "small"
-buttonRadius = "small"
+# -----------------------------
+# Typography
+# -----------------------------
 
-# Give inputs a visible outline so form fields read as fields.
-borderColor = "#E0DCD2"
+# Makes headings feel more like the typography in the logo.
+baseFontSize = 16
+
+# -----------------------------
+# Shape
+# -----------------------------
+
+# A little rounding makes cards/inputs feel polished without
+# giving everything the bubbly default-app look.
+baseRadius = "0.5rem"
+buttonRadius = "full"
+
+# -----------------------------
+# Borders
+# -----------------------------
+
+borderColor = "#C5BBB4"
 showWidgetBorder = true
 
-# ------------------------------------------------------------
-# Theme — the sidebar, which inherits from [theme] unless overridden.
-# A dark sidebar against the light content area is what stops this looking
-# like a stock Streamlit app.
-# ------------------------------------------------------------
+# -----------------------------
+# Data / charts
+# -----------------------------
+
+# Pull chart colors directly from the logo palette.
+chartCategoricalColors = [
+    "#1E2F43",
+    "#BD8873",
+    "#A77A63",
+    "#7C8977",
+    "#697984",
+    "#D7B6A5"
+]
+
+# Nice navy progression for continuous data.
+chartSequentialColors = [
+    "#E8E4DF",
+    "#C8CDD0",
+    "#9DA8AE",
+    "#697984",
+    "#405469",
+    "#1E2F43"
+]
+
+
 [theme.sidebar]
-backgroundColor = "#232B2B"
-secondaryBackgroundColor = "#33403D"
-textColor = "#E9EDEB"
-primaryColor = "#4E9C8D"
-borderColor = "#33403D"
+
+backgroundColor = "#1E2F43"
+secondaryBackgroundColor = "#2D4054"
+textColor = "#F8F3EF"
+primaryColor = "#BD8873"
+borderColor = "#475365"
+
+# Keep the sidebar typography consistent with the main app.
+font = "sans-serif"
+headingFont = "serif"

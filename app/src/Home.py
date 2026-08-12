@@ -63,4 +63,8 @@ if st.button('Act as Morgan, System Administrator',
     st.session_state['authenticated'] = True
     st.session_state['role'] = 'administrator'
     st.session_state['first_name'] = 'SysAdmin'
+
     st.switch_page('pages/system-admin.py')
+
+
+

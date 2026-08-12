@@ -56,6 +56,14 @@ if st.button('Act as Andy, Data Analyst',
     st.session_state['role'] = 'analyst'
     st.session_state['first_name'] = 'Andy'
     st.switch_page('pages/analyst.py')
+    
+if st.button('Act as Taylor, the Software Developer',
+             type='primary',
+             use_container_width=True):
+    st.session_state['authenticated'] = True
+    st.session_state['role'] = 'software_developer'
+    st.session_state['first_name'] = 'Taylor'
+    st.switch_page('pages/10_Software_Developer_Home.py')
 
 if st.button('Act as Morgan, System Administrator',
              type='primary',

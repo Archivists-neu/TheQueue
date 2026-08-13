@@ -137,6 +137,10 @@ def add_new_media_nav():
         "pages/add-media.py", label="Add New Media", icon="📖"
     )
 
+def edit_recommendations_nav():
+    st.sidebar.page_link(
+        "pages/changing_recommendations.py", label="View Recommendations", icon="💬"
+    )
 # ---- Sidebar assembly -------------------------------------------------------
 
 def SideBarLinks(show_home=False):

@@ -12,6 +12,7 @@ logger = logging.getLogger(__name__)
 # as SideBarLinks function from src/modules folder
 import streamlit as st
 from modules.nav import SideBarLinks
+from shared.social import FindUserById, SignInUser
 
 # streamlit supports regular and wide layout (how the controls
 # are organized/displayed on the screen).
@@ -41,12 +42,20 @@ st.write('#### Hi! As which user would you like to log in?')
 # can click to MIMIC logging in as that mock user.
 
 if st.button("Act as persona Sam, The Book lover", type='primary', use_container_width=True):
-    st.session_state['authenticated'] = True
-    st.session_state['role'] = 'book_lover'
-    st.session_state['first_name'] = 'Sam'
-    st.session_state['last_name'] = 'W'
-    st.session_state['status'] = 'busy'
-    st.session_state['email'] = 'sam@gmail.com'
+    seeded_user = FindUserById(1)
+
+    if seeded_user is not None:
+        SignInUser(seeded_user)
+
+    else:
+        # API unreachable -- fall back so the demo still opens.
+        st.session_state['authenticated'] = True
+        st.session_state['role'] = 'book_lover'
+        st.session_state['first_name'] = 'Sam'
+        st.session_state['last_name'] = 'W'
+        st.session_state['status'] = 'busy'
+        st.session_state['email'] = 'sam@gmail.com'
+        st.session_state['user_id'] = 1
     logger.info("Logging in as Book Lover Persona")
     # make it so when the user clicks the button - we send through Create workflow -> create user -> send to book-lovers.py from create
     # st.switch_page('pages/book-lovers.py')

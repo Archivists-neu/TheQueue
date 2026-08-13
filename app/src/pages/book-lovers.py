@@ -28,7 +28,7 @@ with st.container(key="home_container_div"):
         if st.button('Recommendations',
                      type='primary',
                      use_container_width=True):
-            st.switch_page('pages/02_Map_Demo.py')
+            st.switch_page('pages/user-recs.py')
 
     with col2:
         st.write('### Account')
@@ -38,4 +38,5 @@ with st.container(key="home_container_div"):
 
 if st.button("← Logout"):
     st.session_state['authenticated'] = False
-    st.switch_page("pages/home.py")
+    del st.session_state['role']
+    st.switch_page("Home.py")

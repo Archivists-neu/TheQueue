@@ -178,6 +178,7 @@ def SideBarLinks(show_home=False):
             admin_home_nav()
             user_search_nav()
             add_new_media_nav()
+            edit_recommendations_nav()
 
     # About link appears at the bottom for all roles
     about_page_nav()

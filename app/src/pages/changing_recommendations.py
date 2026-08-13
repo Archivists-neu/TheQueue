@@ -10,7 +10,7 @@ st.title("Recommendation Data")
 
 st.write("### Review Recommendation Data")
 st.write(
-    "View recommendation data to test functionality and verify correct results."
+    "Reviewing recommendations."
 )
 
 
@@ -129,6 +129,8 @@ if recommendation_date:
 
 
 # Get recommendation data
+recommendations = []
+
 try:
 
     response = requests.get(
@@ -212,6 +214,102 @@ except requests.exceptions.RequestException as e:
     st.error(
         f"Could not connect to the recommendation API: {e}"
     )
+
+
+# --- Edit the attached message on a recommendation ---
+st.divider()
+st.write("### Edit a Recommendation's Message")
+
+if recommendations:
+    edit_options = {}
+    for r in recommendations:
+        friendship_label = friendship_lookup.get(
+            r.get("friendship_id"), f"Friendship {r.get('friendship_id')}"
+        )
+        label = f"Rec {r['recommendation_id']} — {friendship_label}"
+        edit_options[label] = r
+
+    selected_edit_label = st.selectbox(
+        "Select a recommendation to edit",
+        list(edit_options.keys()),
+        key="edit_select"
+    )
+
+    selected_recommendation = edit_options[selected_edit_label]
+
+    new_message = st.text_area(
+        "Attached Message",
+        value=selected_recommendation.get("attached_message") or "",
+        key="edit_message_text"
+    )
+
+    if st.button("Save Message Changes"):
+        try:
+            edit_url = f"{RECOMMENDATION_URL}/{selected_recommendation['recommendation_id']}"
+            edit_response = requests.put(
+                edit_url,
+                json={"attached_message": new_message}
+            )
+
+            if edit_response.status_code == 200:
+                st.success("Recommendation updated successfully. Refresh to see the change.")
+            else:
+                st.error(
+                    f"Failed to update recommendation: "
+                    f"{edit_response.json().get('error', 'Unknown error')}"
+                )
+        except requests.exceptions.RequestException as e:
+            st.error(f"Could not connect to the recommendation API: {e}")
+else:
+    st.info("No recommendations available to edit.")
+
+
+# --- Delete a recommendation ---
+st.divider()
+st.write("### Delete a Recommendation")
+
+if recommendations:
+    delete_options = {}
+    for r in recommendations:
+        friendship_label = friendship_lookup.get(
+            r.get("friendship_id"), f"Friendship {r.get('friendship_id')}"
+        )
+        label = f"Rec {r['recommendation_id']} — {friendship_label}"
+        delete_options[label] = r["recommendation_id"]
+
+    selected_delete_labels = st.multiselect(
+        "Select recommendation(s) to delete",
+        list(delete_options.keys())
+    )
+
+    if selected_delete_labels:
+        st.warning(
+            f"You are about to delete {len(selected_delete_labels)} "
+            f"recommendation(s). This cannot be undone."
+        )
+        if st.button("Confirm Delete", type="primary"):
+            deleted = 0
+            errors = []
+            for label in selected_delete_labels:
+                recommendation_id = delete_options[label]
+                try:
+                    delete_url = f"{RECOMMENDATION_URL}/{recommendation_id}"
+                    resp = requests.delete(delete_url)
+                    if resp.status_code == 200:
+                        deleted += 1
+                    else:
+                        errors.append(
+                            f"{label}: {resp.json().get('error', 'Unknown error')}"
+                        )
+                except requests.exceptions.RequestException as e:
+                    errors.append(f"{label}: could not connect to API")
+
+            if deleted:
+                st.success(f"Deleted {deleted} recommendation(s). Refresh the page to update the table.")
+            for err in errors:
+                st.error(err)
+else:
+    st.info("No recommendations available to delete.")
 
 
 # Back button

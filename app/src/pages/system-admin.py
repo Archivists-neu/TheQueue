@@ -22,3 +22,9 @@ if st.button('Add Media',
              type='primary',
              use_container_width=True):
     st.switch_page('pages/add-media.py')
+
+# Edit Recommendations 
+if st.button('Edit Recommendations',
+             type='primary',
+             use_container_width=True):
+    st.switch_page('pages/changing_recommendations.py')

@@ -111,14 +111,16 @@ def recommendations_nav():
 # ---- Role: data analyst -----------------------------------------------------
 
 def analyst_overview_nav():
-    st.sidebar.page_link(
-        "pages/analyst.py", label="Analyst Overview", icon="📊"
-    )
-
+    st.sidebar.page_link("pages/analyst.py", label="Analyst Overview", icon="📊")
 
 def performance_nav():
     st.sidebar.page_link("pages/analyst_dashboard.py", label="Performance Dashboard", icon="📈")
 
+def user_insights_nav():
+    st.sidebar.page_link("pages/user_insights.py", label="User Insights", icon="👥")
+
+def rec_insights_nav():
+    st.sidebar.page_link("pages/rec_insights.py", label="Recommendation Insights", icon="🎯")
 
     # --- Kept as System Admin ------
 # ---- Role: administrator ----------------------------------------------------
@@ -137,6 +139,10 @@ def add_new_media_nav():
         "pages/add-media.py", label="Add New Media", icon="📖"
     )
 
+def edit_recommendations_nav():
+    st.sidebar.page_link(
+        "pages/changing_recommendations.py", label="View Recommendations", icon="💬"
+    )
 # ---- Sidebar assembly -------------------------------------------------------
 
 def SideBarLinks(show_home=False):
@@ -169,11 +175,14 @@ def SideBarLinks(show_home=False):
         if st.session_state["role"] == "analyst":
             analyst_overview_nav()
             performance_nav()
+            user_insights_nav()
+            rec_insights_nav()
 
         if st.session_state["role"] == "administrator":
             admin_home_nav()
             user_search_nav()
             add_new_media_nav()
+            edit_recommendations_nav()
 
     # About link appears at the bottom for all roles
     about_page_nav()

@@ -101,6 +101,9 @@ def media_search_nav():
 def friend_search_nav():
     st.sidebar.page_link("pages/friend-search.py", label="Friend Search", icon="🫂")
 
+def profile_view_nav():
+    st.sidebar.page_link("pages/user-profile.py", label="Profile", icon="👤")
+
 def map_demo_nav():
     st.sidebar.page_link("pages/02_Map_Demo.py", label="Map Demonstration", icon="🗺️")
 
@@ -160,6 +163,7 @@ def SideBarLinks(show_home=False):
             book_lover_home_nav()
             media_search_nav()
             friend_search_nav()
+            profile_view_nav()
             map_demo_nav()
 
         if st.session_state["role"] == "analyst":

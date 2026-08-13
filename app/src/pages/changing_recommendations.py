@@ -67,62 +67,9 @@ with col2:
     )
 
 
-# Recommendation filters
-st.write("### Filter Recommendations")
-
-
-# Friendship dropdown
-friendship_options = {
-    "All Friendships": None
-}
-
-for friendship in friendships:
-
-    label = (
-        f"{friendship['requester_name']} ↔ "
-        f"{friendship['addressee_name']}"
-    )
-
-    friendship_options[label] = friendship["friendship_id"]
-
-
-selected_friendship = st.selectbox(
-    "Friendship",
-    list(friendship_options.keys())
-)
-
-selected_friendship_id = friendship_options[
-    selected_friendship
-]
-
-
-# Media filter
-media_id = st.number_input(
-    "Media ID",
-    min_value=0,
-    step=1,
-    value=0
-)
-
-
-# Date filter
-recommendation_date = st.text_input(
-    "Recommendation Date",
-    placeholder="YYYY-MM-DD"
-)
-
 
 # Build query parameters
 params = {}
-
-if selected_friendship_id is not None:
-    params["friendship_id"] = selected_friendship_id
-
-if media_id > 0:
-    params["media_id"] = media_id
-
-if recommendation_date:
-    params["recommendation_date"] = recommendation_date
 
 
 # Get recommendation data

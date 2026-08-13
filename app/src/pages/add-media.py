@@ -39,8 +39,6 @@ if submitted:
             "genre": genre,
             "summary": summary,
         }
-        if media_id:
-            new_media["media_id"] = media_id
 
     try:
         response = requests.post(GetMediaApi(), json=new_media)

@@ -111,14 +111,16 @@ def map_demo_nav():
 # ---- Role: data analyst -----------------------------------------------------
 
 def analyst_overview_nav():
-    st.sidebar.page_link(
-        "pages/analyst.py", label="Analyst Overview", icon="📊"
-    )
-
+    st.sidebar.page_link("pages/analyst.py", label="Analyst Overview", icon="📊")
 
 def performance_nav():
     st.sidebar.page_link("pages/analyst_dashboard.py", label="Performance Dashboard", icon="📈")
 
+def user_insights_nav():
+    st.sidebar.page_link("pages/user_insights.py", label="User Insights", icon="👥")
+
+def rec_insights_nav():
+    st.sidebar.page_link("pages/rec_insights.py", label="Recommendation Insights", icon="🎯")
 
     # --- Kept as System Admin ------
 # ---- Role: administrator ----------------------------------------------------
@@ -173,6 +175,8 @@ def SideBarLinks(show_home=False):
         if st.session_state["role"] == "analyst":
             analyst_overview_nav()
             performance_nav()
+            user_insights_nav()
+            rec_insights_nav()
 
         if st.session_state["role"] == "administrator":
             admin_home_nav()

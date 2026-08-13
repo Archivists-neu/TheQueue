@@ -141,7 +141,7 @@ def delete_genre():
                 "error": "Genre not found"
             }), 404
 
-        # Remove any media links to this genre first
+        # Remove media links to this genre first
         cursor.execute("""
             DELETE FROM media_genre
             WHERE genre_id = %s;

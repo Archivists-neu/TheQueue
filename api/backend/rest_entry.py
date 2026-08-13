@@ -50,7 +50,10 @@ def create_app():
     app.register_blueprint(recommendations, url_prefix="/recommendation")
 
 
+
     # Genre routes
-    app.register_blueprint(genres)
+    app.register_blueprint(genres, url_prefix="/genre")
+
+   
 
     return app

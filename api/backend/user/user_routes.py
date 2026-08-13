@@ -17,7 +17,7 @@ updatable_fields = ["first_name", "last_name", "email", "phone", "dob",
                     "gender", "account_status", "custom_status_message", "location_id"]
 
 
-@users.route("", methods=["GET"])
+@users.route("/", methods=["GET"])
 def get_all_users():
     cursor = get_db().cursor(dictionary=True)
     try:
@@ -65,7 +65,7 @@ def get_all_users():
 
 
 
-@users.route("", methods=["POST"])
+@users.route("/", methods=["POST"])
 def create_user():
     cursor = get_db().cursor(dictionary=True)
     try:

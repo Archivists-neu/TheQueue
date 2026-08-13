@@ -1,6 +1,7 @@
 import streamlit as st
 import requests
 from modules.nav import SideBarLinks
+from shared.apifuncs import GetMediaApi, GetRecommendationApi, GetReviewsApi
 
 
 st.set_page_config(layout="wide")
@@ -19,9 +20,9 @@ st.write(
 
 
 # API locations
-REVIEWS_URL = "http://api:4000/review/reviews"
-RECOMMENDATIONS_URL = "http://api:4000/recommendation/recommendations"
-MEDIA_URL = "http://api:4000/media/media"
+REVIEWS_URL = GetReviewsApi()
+RECOMMENDATIONS_URL = GetRecommendationApi()
+MEDIA_URL = GetMediaApi()
 
 
 # GET APPLICATION DATA

@@ -5,7 +5,8 @@ from mysql.connector import Error
 recommendations = Blueprint("recommendations", __name__)
 
 # Get all recommendations with optional filtering by friendship, media, and recommendation date
-@recommendations.route("/recommendations", methods=["GET"])
+@recommendations.route("", methods=["GET"])
+@recommendations.route("/", methods=["GET"])
 def get_all_recommendations():
     cursor = get_db().cursor(dictionary=True)
     try:
@@ -40,7 +41,7 @@ def get_all_recommendations():
 
 
 # Get one specific recommendation
-@recommendations.route("/recommendations/<int:recommendation_id>", methods=["GET"])
+@recommendations.route("/<int:recommendation_id>", methods=["GET"])
 def get_recommendation(recommendation_id):
     cursor = get_db().cursor(dictionary=True)
     try:
@@ -86,7 +87,8 @@ def get_user_recommendations(user_id):
 
 
 # Create a new recommendation to a friend
-@recommendations.route("/recommendations", methods=["POST"])
+@recommendations.route("", methods=["POST"])
+@recommendations.route("/", methods=["POST"])
 def create_recommendation():
     cursor = get_db().cursor(dictionary=True)
     try:
@@ -120,7 +122,7 @@ def create_recommendation():
 
 
 # Update an existing recommendation
-@recommendations.route("/recommendations/<int:recommendation_id>", methods=["PUT"])
+@recommendations.route("/<int:recommendation_id>", methods=["PUT"])
 def update_recommendation(recommendation_id):
     cursor = get_db().cursor(dictionary=True)
     try:
@@ -151,7 +153,7 @@ def update_recommendation(recommendation_id):
 
 
 # Delete an outdated recommendation
-@recommendations.route("/recommendations/<int:recommendation_id>", methods=["DELETE"])
+@recommendations.route("/<int:recommendation_id>", methods=["DELETE"])
 def delete_recommendation(recommendation_id):
     cursor = get_db().cursor(dictionary=True)
     try:

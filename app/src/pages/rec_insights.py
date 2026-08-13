@@ -1,12 +1,11 @@
 import logging
-import os
 from datetime import date
 
 import pandas as pd
-import requests
 import streamlit as st
 
 from modules.nav import SideBarLinks
+from shared.apifuncs import GetApiData
 
 
 logger = logging.getLogger(__name__)
@@ -26,43 +25,12 @@ SideBarLinks()
 
 
 # ------------------------------------------------------
-# API CONFIGURATION
-# ------------------------------------------------------
-
-API_URL = os.getenv("API_URL", "http://api:4000")
-
-
-def get_api_data(endpoint):
-    """
-    Send a GET request to the Flask API.
-    Returns an empty list if the request fails.
-    """
-    try:
-        response = requests.get(
-            f"{API_URL}{endpoint}",
-            timeout=10
-        )
-
-        response.raise_for_status()
-        return response.json()
-
-    except requests.RequestException as e:
-        logger.error(
-            f"API request failed for {endpoint}: {e}"
-        )
-
-        return []
-
-
-# ------------------------------------------------------
 # LOAD API DATA
 # ------------------------------------------------------
 
-recommendations = get_api_data(
-    "/recommendation/recommendations"
-)
+recommendations = GetApiData("/recommendation")
 
-media = get_api_data("/media")
+media = GetApiData("/media")
 
 
 recommendations_df = pd.DataFrame(

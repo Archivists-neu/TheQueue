@@ -1,13 +1,12 @@
 import logging
-import os
 from datetime import date
 
 import matplotlib.pyplot as plt
 import pandas as pd
-import requests
 import streamlit as st
 
 from modules.nav import SideBarLinks
+from shared.apifuncs import GetApiData
 
 
 logger = logging.getLogger(__name__)
@@ -27,46 +26,13 @@ SideBarLinks()
 
 
 # ------------------------------------------------------
-# API HELPER
-# ------------------------------------------------------
-
-API_URL = os.getenv("API_URL", "http://api:4000")
-def get_api_data(endpoint):
-    """
-    Sends a GET request to the Flask API.
-
-    Returns an empty list if the request fails so that the
-    dashboard can still load without crashing.
-    """
-
-    try:
-        response = requests.get(
-            f"{API_URL}{endpoint}",
-            timeout=10
-        )
-
-        response.raise_for_status()
-
-        return response.json()
-
-    except requests.RequestException as e:
-        logger.error(f"API request failed for {endpoint}: {e}")
-
-        st.error(
-            f"Unable to load data from {endpoint}."
-        )
-
-        return []
-
-
-# ------------------------------------------------------
 # LOAD DATA
 # ------------------------------------------------------
 
-users = get_api_data("/user")
-media = get_api_data("/media")
-reviews = get_api_data("/review/reviews")
-friendships = get_api_data("/friendship/friendships")
+users = GetApiData("/user")
+media = GetApiData("/media")
+reviews = GetApiData("/review/reviews")
+friendships = GetApiData("/friendship/friendships")
 
 
 # ------------------------------------------------------

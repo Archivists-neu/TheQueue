@@ -1,6 +1,7 @@
 import streamlit as st
 import requests
 from modules.nav import SideBarLinks
+from shared.apifuncs import GetRecommendationApi
 
 
 st.set_page_config(layout="wide")
@@ -19,7 +20,7 @@ st.write(
 
 
 # API location
-API_URL = "http://api:4000/recommendation/recommendations"
+API_URL = GetRecommendationApi()
 
 # GET EXISTING RECOMMENDATIONS
 try:
@@ -55,7 +56,7 @@ try:
             if st.button("Delete Recommendation"):
 
                 delete_response = requests.delete(
-                    f"{API_URL}/{selected_id}"
+                    GetRecommendationApi(selected_id)
                 )
 
                 if delete_response.status_code == 200:

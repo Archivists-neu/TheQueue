@@ -3,6 +3,7 @@ logger = logging.getLogger(__name__)
 
 import streamlit as st
 import requests
+import pandas as pd
 from modules.nav import SideBarLinks
 from shared.apifuncs import GetUsersApi
 
@@ -55,6 +56,7 @@ if submitted:
 st.divider()
 
 # --- Full table of all users ---
+
 st.write("### All Users")
 
 data = {}
@@ -64,7 +66,61 @@ except requests.exceptions.RequestException as e:
     st.write("**Important**: Could not connect to sample API, so using dummy data.")
     data = {}
 
-st.dataframe(data)
+if data:
+    df = pd.DataFrame(data)
+
+    column_labels = {
+        "user_id": "User ID",
+        "first_name": "First Name",
+        "last_name": "Last Name",
+        "email": "Email",
+        "phone": "Phone",
+        "dob": "Date of Birth",
+        "gender": "Gender",
+        "account_status": "Status",
+        "custom_status_message": "Status Message",
+        "date_account_creation": "Member Since",
+        "location_id": "Location",
+    }
+
+    df = df.rename(columns=column_labels)
+    st.dataframe(df, hide_index=True)
+else:
+    st.dataframe(data)
+
+# --- Delete a user ---
+st.divider()
+st.write("### Delete a User")
+
+if data:
+    user_options = {
+        f"{row['first_name']} {row['last_name']} (ID {row['user_id']})": row['user_id']
+        for row in data
+    }
+
+    selected_labels = st.multiselect("Select user(s) to delete", list(user_options.keys()))
+
+    if selected_labels:
+        st.warning(f"You are about to delete {len(selected_labels)} user(s). This cannot be undone.")
+        if st.button("Confirm Delete", type="primary"):
+            deleted = 0
+            errors = []
+            for label in selected_labels:
+                user_id = user_options[label]
+                try:
+                    resp = requests.delete(f"{GetUsersApi()}/{user_id}")
+                    if resp.status_code == 200:
+                        deleted += 1
+                    else:
+                        errors.append(f"{label}: {resp.json().get('error', 'Unknown error')}")
+                except requests.exceptions.RequestException as e:
+                    errors.append(f"{label}: could not connect to API")
+                    logger.error(f"Error deleting user {user_id}: {e}")
+
+            if deleted:
+                st.success(f"Deleted {deleted} user(s). Refresh the page to update the table.")
+            for err in errors:
+                st.error(err)
 
 if st.button("← Home"):
     st.switch_page("pages/system-admin.py")

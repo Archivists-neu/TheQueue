@@ -36,7 +36,7 @@ if st.button("Add Media", type="primary", use_container_width=True):
 
     try:
         response = requests.post(
-            "http://api:4000/media/media",
+            "http://api:4000/media",
             json=media_data
         )
 

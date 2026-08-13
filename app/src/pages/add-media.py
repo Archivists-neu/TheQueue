@@ -19,11 +19,10 @@ Use the form below to add a new piece of media to the database.
 with st.form("add_media_form"):
     col1, col2 = st.columns(2)
     with col1:
-        media_type = st.selectbox("Category", ["Book", "TV Show", "Movie", "Game"])
+        media_type = st.selectbox("Category", ["book", "tvshow", "movie", "game"])
         title = st.text_input("Title")
         author = st.text_input("Author")
     with col2:
-        media_id = st.text_input("Media ID")
         genre = st.text_input("Genre")
         summary = st.text_area("Summary")
 
@@ -37,11 +36,8 @@ if submitted:
             "title": title,
             "author": author,
             "media_type": media_type,
-            "genre": genre,
             "summary": summary,
         }
-        if media_id:
-            new_media["media_id"] = media_id
 
     try:
         response = requests.post(GetMediaApi(), json=new_media)

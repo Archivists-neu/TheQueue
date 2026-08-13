@@ -79,6 +79,7 @@ with st.form(f"add_ngo_form_{st.session_state.form_key_counter}"):
                     st.session_state.show_success_modal = True
                     st.session_state.success_user_name = f"{first_name} {last_name}"
                     st.session_state['first_name'] = first_name
+                    st.session_state['last_name'] = last_name
                     st.rerun()
                 else:
                     st.error(

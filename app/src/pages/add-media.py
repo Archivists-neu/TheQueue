@@ -23,7 +23,6 @@ with st.form("add_media_form"):
         title = st.text_input("Title")
         author = st.text_input("Author")
     with col2:
-        media_id = st.text_input("Media ID")
         genre = st.text_input("Genre")
         summary = st.text_area("Summary")
 

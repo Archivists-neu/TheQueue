@@ -1,6 +1,7 @@
 import streamlit as st
 import requests
 from modules.nav import SideBarLinks
+from shared.apifuncs import GetFriendshipsApi, GetRecommendationApi
 
 
 st.set_page_config(layout="wide")
@@ -14,13 +15,9 @@ st.write(
 )
 
 
-RECOMMENDATION_URL = (
-    "http://api:4000/recommendation/recommendations"
-)
+RECOMMENDATION_URL = GetRecommendationApi()
 
-FRIENDSHIP_URL = (
-    "http://api:4000/friendship/friendships"
-)
+FRIENDSHIP_URL = GetFriendshipsApi()
 
 
 # Get friendships so we can display people's names

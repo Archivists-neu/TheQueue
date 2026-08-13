@@ -5,7 +5,9 @@ import pandas as pd
 import requests
 import streamlit as st
 from modules.nav import SideBarLinks
+from shared.apifuncs import GetApiData
 from shared.apifuncs import GetMediaSearchApi
+
 
 
 
@@ -18,24 +20,44 @@ st.write(f"### Hi, {st.session_state.get('first_name', 'there')}.")
 if "media_search_query" not in st.session_state:
     st.session_state.media_search_query = None
 
-with st.form("media_search_form"):
-    st.subheader("Media Information")
 
-    title = st.text_input("Media Title *")
-    media_type = st.selectbox(
-        "Media Type", ["any", "book", "tvshow", "game", "movie"]
-    )
+recommendationCol, searchCol = st.columns([1, 1.4])
+with recommendationCol:
+    st.subheader("Recommendations")
 
-    submitted = st.form_submit_button("Search")
+    recommendation_list = GetApiData("recommendation")
 
-    if submitted:
-        if not title.strip():
-            st.error("Please fill in all required fields marked with *")
-        else:
-            st.session_state.media_search_query = {
-                "title": title.strip(),
-                "media_type": media_type,
-            }
+    if not recommendation_list:
+        st.info("No recommendations yet.")
+    else:
+        st.caption(f"{len(recommendation_list)} total")
+        st.dataframe(
+            pd.DataFrame(recommendation_list),
+            use_container_width=True,
+            hide_index=True,
+        )
+
+
+
+with searchCol:
+    with st.form("media_search_form"):
+        st.subheader("Media Information")
+
+        title = st.text_input("Media Title *")
+        media_type = st.selectbox(
+            "Media Type", ["any", "book", "tvshow", "game", "movie"]
+        )
+
+        submitted = st.form_submit_button("Search")
+
+        if submitted:
+            if not title.strip():
+                st.error("Please fill in all required fields marked with *")
+            else:
+                st.session_state.media_search_query = {
+                    "title": title.strip(),
+                    "media_type": media_type,
+                }
 
 query = st.session_state.media_search_query
 
@@ -70,6 +92,9 @@ if query:
         logger.warning("media search request failed: %s", e)
         st.error(f"Error connecting to the API: {str(e)}")
         st.info("Please ensure the API server is running")
+
+# add recommendations view
+
 
 if st.button("← Home"):
     st.switch_page("pages/book-lovers.py")

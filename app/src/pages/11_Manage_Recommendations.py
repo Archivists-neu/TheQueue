@@ -2,6 +2,7 @@ import streamlit as st
 import requests
 
 from modules.nav import SideBarLinks
+from shared.apifuncs import GetFriendshipsApi, GetRecommendationApi
 
 st.set_page_config(layout="wide")
 
@@ -15,8 +16,8 @@ st.write(
 )
 
 # Flask API locations
-API_URL = "http://api:4000/recommendation/recommendations"
-FRIENDSHIP_URL = "http://api:4000/friendship/friendships"
+API_URL = GetRecommendationApi()
+FRIENDSHIP_URL = GetFriendshipsApi()
 
 
 # GET FRIENDSHIPS
@@ -131,7 +132,7 @@ try:
 
                 try:
                     update_response = requests.put(
-                        f"{API_URL}/{selected_id}",
+                        GetRecommendationApi(selected_id),
                         json=update_data
                     )
 

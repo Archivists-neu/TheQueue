@@ -7,7 +7,7 @@ genres = Blueprint("genres", __name__)
 
 
 # GET ALL GENRES
-@genres.route("", methods=["GET"])
+@genres.route("/", methods=["GET"])
 def get_genres():
     db = get_db()
     cursor = db.cursor(dictionary=True)
@@ -31,7 +31,7 @@ def get_genres():
 
 
 # ADD NEW GENRE
-@genres.route("", methods=["POST"])
+@genres.route("/", methods=["POST"])
 def add_genre():
     db = get_db()
     cursor = db.cursor()
@@ -71,7 +71,7 @@ def add_genre():
 
 
 # LINK MEDIA TO AN EXISTING GENRE
-@genres.route("", methods=["PUT"])
+@genres.route("/", methods=["PUT"])
 def link_media_to_genre():
     db = get_db()
     cursor = db.cursor()
@@ -111,7 +111,7 @@ def link_media_to_genre():
 
 
 # DELETE AN EXISTING GENRE
-@genres.route("", methods=["DELETE"])
+@genres.route("/", methods=["DELETE"])
 def delete_genre():
     db = get_db()
     cursor = db.cursor()
@@ -141,7 +141,7 @@ def delete_genre():
                 "error": "Genre not found"
             }), 404
 
-        # Remove any media links to this genre first
+        # Remove media links to this genre first
         cursor.execute("""
             DELETE FROM media_genre
             WHERE genre_id = %s;

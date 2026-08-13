@@ -147,4 +147,3 @@ def update_user(user_id):
         return jsonify({"error": str(e)}), 500
     finally:
         cursor.close()
-

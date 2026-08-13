@@ -27,7 +27,7 @@ with col1:
     email = st.text_input('Email', data['email'])
 
 with col2:
-    email = st.text_input('Email')
+    status = st.text_input('Status')
 
 st.divider()
 

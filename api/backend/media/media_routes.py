@@ -19,7 +19,7 @@ def _fetch_media(where_clause, params):
         cursor.close()
 
 
-@media.route("", methods=["GET"])
+@media.route("/", methods=["GET"])
 def get_all_media():
     cursor = get_db().cursor(dictionary=True)
     try:
@@ -206,7 +206,7 @@ def update_media(media_id):
 
 
 # Adding a new piece of media 
-@media.route("", methods=["POST"])
+@media.route("/", methods=["POST"])
 def add_media():
     cursor = get_db().cursor(dictionary=True)
     try:

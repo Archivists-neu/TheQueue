@@ -147,3 +147,32 @@ def update_user(user_id):
         return jsonify({"error": str(e)}), 500
     finally:
         cursor.close()
+
+
+@users.route("/<int:user_id>", methods=["DELETE"])
+def delete_user(user_id):
+    cursor = get_db().cursor(dictionary=True)
+    try:
+        current_app.logger.info(f'DELETE /user/users/{user_id}')
+
+        cursor.execute(
+            "SELECT user_id FROM user WHERE user_id = %s AND date_account_deletion IS NULL",
+            (user_id,)
+        )
+        if not cursor.fetchone():
+            return jsonify({"error": "User not found"}), 404
+
+        cursor.execute(
+            "UPDATE user SET date_account_deletion = NOW() WHERE user_id = %s",
+            (user_id,)
+        )
+        get_db().commit()
+
+        current_app.logger.info(f'Soft-deleted user {user_id}')
+        return jsonify({"message": f"User {user_id} deleted successfully"}), 200
+    except Error as e:
+        get_db().rollback()
+        current_app.logger.error(f'Database error in delete_user: {e}')
+        return jsonify({"error": str(e)}), 500
+    finally:
+        cursor.close()

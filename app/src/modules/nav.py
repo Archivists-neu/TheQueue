@@ -112,7 +112,7 @@ def recommendations_nav():
 
 def analyst_overview_nav():
     st.sidebar.page_link(
-        "pages/analyst.py", label="Analytics Overview", icon="📊"
+        "pages/analyst.py", label="Analyst Overview", icon="📊"
     )
 
 

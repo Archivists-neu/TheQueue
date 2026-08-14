@@ -20,6 +20,7 @@ import streamlit as st
 from shared.apifuncs import (
     GetApiData,
     GetFriendshipsApi,
+    GetLocationsApi,
     GetMediaSearchApi,
     GetReviewsApi,
     GetUserRecommendationsApi,
@@ -94,6 +95,49 @@ def LoadUsers():
     ).str.strip()
 
     return users_df
+
+
+def FormatLocation(record):
+    """
+    "City, State" the way someone would say it out loud.
+
+    Country is only tacked on when it is not the default, so the demo
+    data does not read as "Boston, Massachusetts, United States".
+    """
+    parts = [record.get("city"), record.get("state")]
+
+    if (record.get("country") or "United States") != "United States":
+        parts.append(record.get("country"))
+
+    return ", ".join(part for part in parts if part)
+
+
+@st.cache_data(ttl=60)
+def LoadLocations():
+    """location_id + a single display_location column."""
+    locations_df = pd.DataFrame(GetApiData(GetLocationsApi()))
+
+    if locations_df.empty or "city" not in locations_df.columns:
+        return locations_df
+
+    locations_df["display_location"] = [
+        FormatLocation(record)
+        for record in locations_df.to_dict("records")
+    ]
+
+    return locations_df.sort_values("display_location").reset_index(drop=True)
+
+
+def LoadLocationOptions():
+    locations_df = LoadLocations()
+
+    if locations_df.empty:
+        return {}
+
+    return {
+        record["display_location"]: int(record["location_id"])
+        for record in locations_df.to_dict("records")
+    }
 
 
 @st.cache_data(ttl=60)

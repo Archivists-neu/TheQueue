@@ -126,6 +126,11 @@ def GetUsersApi(user_id=None) -> str:
     return GetApiRoute(f"user/{user_id}")
 
 
+def GetLocationsApi() -> str:
+    """Base location URL. The API exposes list/create on /location."""
+    return GetApiRoute("location")
+
+
 def GetMediaApi() -> str:
     return GetApiRoute(MEDIA_COLLECTION)
 

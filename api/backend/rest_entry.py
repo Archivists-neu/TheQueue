@@ -12,6 +12,7 @@ from backend.media.media_routes import media
 from backend.ngos.ngo_routes import ngos
 from backend.friendship.friendship_routes import friendships
 from backend.genre.genre_routes import genres
+from backend.location.location_routes import locations
 
 
 def create_app():
@@ -48,6 +49,7 @@ def create_app():
     app.register_blueprint(media, url_prefix="/media")
     app.register_blueprint(reviews, url_prefix="/review")
     app.register_blueprint(recommendations, url_prefix="/recommendation")
+    app.register_blueprint(locations, url_prefix="/location")
 
 
 

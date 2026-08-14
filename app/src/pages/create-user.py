@@ -3,7 +3,7 @@ import streamlit as st
 import requests
 from modules.nav import SideBarLinks
 from shared.apifuncs import GetUsersApi
-from shared.social import FindUserByEmail, SignInUser
+from shared.social import FindUserByEmail, LoadLocationOptions, SignInUser
 
 st.set_page_config(layout='wide')
 
@@ -78,12 +78,28 @@ with st.form(f"add_ngo_form_{st.session_state.form_key_counter}"):
     st.subheader("User Information")
 
     first_name = st.text_input("First Name *")
-    last_name = st.text_input("LastName *")
+    last_name = st.text_input("Last Name *")
     email = st.text_input("Email *")
-    current_year = datetime.date.today().year
-    location_id = st.number_input(
-        "location_id*", value=0
+
+    # People know where they live, not which row of the location table
+    # they live in, so the picker shows "City, State" and the id is
+    # looked up on submit.
+    location_options = LoadLocationOptions()
+
+    location_label = st.selectbox(
+        "Location *",
+        options=list(location_options),
+        index=None,
+        placeholder="Pick your city",
     )
+
+    location_id = location_options.get(location_label)
+
+    if not location_options:
+        st.warning(
+            "No locations came back from the API, so an account cannot be "
+            "created yet. Check that the API server is running."
+        )
 
     # Form submission button
     submitted = st.form_submit_button("Create")

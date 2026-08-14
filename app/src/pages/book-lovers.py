@@ -21,35 +21,59 @@ def styleHomeContainer():
 
         div.st-key-btn_media_search button {
             border-radius: 8px;
-            background-color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(0, 0, 0, 0.2);
             color: black;
         }
         div.st-key-btn_recommendations button {
             border-radius: 8px;
-            background-color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(0, 0, 0, 0.2);
             color: black;
         }
         div.st-key-btn_friend_search button {
             border-radius: 8px;
-            background-color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(0, 0, 0, 0.2);
             color: black;
         }
         div.st-key-btn_profile button {
             border-radius: 8px;
-            background-color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(0, 0, 0, 0.2);
             color: black;
         }
         div.st-key-btn_media_search button:hover {
-            background-color: #f5f5f5;
+            background-color: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(0, 0, 0, 0.5);
         }
         div.st-key-btn_recommendations button:hover {
-            background-color: #f5f5f5;
+            background-color: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(0, 0, 0, 0.5);
         }
         div.st-key-btn_friend_search button:hover {
-            background-color: #f5f5f5;
+            background-color: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(0, 0, 0, 0.5);
         }
         div.st-key-btn_profile button:hover {
-            background-color: #f5f5f5;
+            background-color: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(0, 0, 0, 0.5);
+        }
+        div.st-key-btn_media_search button:focus-visible {
+            background-color: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(0, 0, 0, 0.5);
+        }
+        div.st-key-btn_recommendations button:focus-visible {
+            background-color: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(0, 0, 0, 0.5);
+        }
+        div.st-key-btn_friend_search button:focus-visible {
+            background-color: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(0, 0, 0, 0.5);
+        }
+        div.st-key-btn_profile button:focus-visible {
+            background-color: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(0, 0, 0, 0.5);
         }
         </style>
         """,

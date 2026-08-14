@@ -4,6 +4,57 @@ logger = logging.getLogger(__name__)
 import streamlit as st
 from modules.nav import SideBarLinks
 
+def styleHomeContainer():
+    st.markdown(
+        """
+        <style>
+        div.st-key-home_container_div {
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,.12);
+            border: 1px solid #ffffff;
+            padding: 1rem;
+            transition: box-shadow .2s ease-in-out;
+        }
+        div.st-key-home_container_div:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,.16);
+        }
+
+        div.st-key-btn_media_search button {
+            border-radius: 8px;
+            background-color: #ffffff;
+            color: black;
+        }
+        div.st-key-btn_recommendations button {
+            border-radius: 8px;
+            background-color: #ffffff;
+            color: black;
+        }
+        div.st-key-btn_friend_search button {
+            border-radius: 8px;
+            background-color: #ffffff;
+            color: black;
+        }
+        div.st-key-btn_profile button {
+            border-radius: 8px;
+            background-color: #ffffff;
+            color: black;
+        }
+        div.st-key-btn_media_search button:hover {
+            background-color: #f5f5f5;
+        }
+        div.st-key-btn_recommendations button:hover {
+            background-color: #f5f5f5;
+        }
+        div.st-key-btn_friend_search button:hover {
+            background-color: #f5f5f5;
+        }
+        div.st-key-btn_profile button:hover {
+            background-color: #f5f5f5;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True)
+
 st.set_page_config(layout='wide')
 
 SideBarLinks()
@@ -13,27 +64,34 @@ st.write('### What would you like to do today?')
 
 st.divider()
 
-with st.container(key="home_container_div"):
-    col1, col2 = st.columns(2)
-    with col1:
-        st.write('### Entertainment')
-        if st.button('Media Search',
+
+styleHomeContainer()
+with st.container(key="home_container_div", border=True):
+    st.write('#### Media')
+    l_media, r_media = st.columns(2)
+    with l_media:
+        if st.button('Media Search', key='btn_media_search',
                      type='primary',
                      use_container_width=True):
             st.switch_page('pages/media-search.py')
-        if st.button('Friend Search',
-                     type='primary',
-                     use_container_width=True):
-            st.switch_page('pages/friend-search.py')
-        if st.button('Recommendations',
+    with r_media:
+        if st.button('Recommendations', key='btn_recommendations',
                      type='primary',
                      use_container_width=True):
             st.switch_page('pages/user-recs.py')
 
-    with col2:
-        st.write('### Account')
-        if st.button('Profile', type='primary', use_container_width=True):
-            st.switch_page('pages/user-profile.py')
+
+    st.write('#### Friends')
+    if st.button('Friend Search', key='btn_friend_search',
+                 type='primary',
+                 use_container_width=True):
+        st.switch_page('pages/friend-search.py')
+
+    st.write('#### Profile Information')
+    if st.button('Profile', key='btn_profile',
+                 type='primary',
+                 use_container_width=True):
+        st.switch_page('pages/user-profile.py')
 
 
 if st.button("← Logout"):

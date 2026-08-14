@@ -9,11 +9,24 @@ media = Blueprint("media", __name__)
 VALID_MEDIA_TYPES = {"book", "tvshow", "game", "movie"}
 
 
+MEDIA_SELECT = """
+    SELECT
+        m.*,
+        GROUP_CONCAT(g.name ORDER BY g.name SEPARATOR ', ') AS genres
+    FROM media m
+    LEFT JOIN media_genre mg ON m.media_id = mg.media_id
+    LEFT JOIN genre g ON mg.genre_id = g.genre_id
+"""
+
+
 def _fetch_media(where_clause, params):
     """Shared helper for simple single-condition media lookups."""
     cursor = get_db().cursor(dictionary=True)
     try:
-        cursor.execute(f"SELECT * FROM media WHERE {where_clause}", params)
+        cursor.execute(
+            f"{MEDIA_SELECT} WHERE {where_clause} GROUP BY m.media_id",
+            params
+        )
         return cursor.fetchall()
     finally:
         cursor.close()
@@ -30,24 +43,26 @@ def get_all_media():
         summary = request.args.get("summary")
         author = request.args.get("author")
 
-        query = "SELECT * FROM media WHERE 1=1"
+        query = f"{MEDIA_SELECT} WHERE 1=1"
         params = []
 
         if media_id:
-            query += " AND media_id = %s"
+            query += " AND m.media_id = %s"
             params.append(media_id)
         if media_type:
-            query += " AND media_type = %s"
+            query += " AND m.media_type = %s"
             params.append(media_type)
         if title:
-            query += " AND title LIKE %s"
+            query += " AND m.title LIKE %s"
             params.append(f"%{title}%")
         if summary:
-            query += " AND summary LIKE %s"
+            query += " AND m.summary LIKE %s"
             params.append(f"%{summary}%")
         if author:
-            query += " AND author LIKE %s"
+            query += " AND m.author LIKE %s"
             params.append(f"%{author}%")
+
+        query += " GROUP BY m.media_id"
 
         cursor.execute(query, params)
         media_list = cursor.fetchall()
@@ -66,7 +81,7 @@ def get_all_media():
 def get_media_by_id(media_id):
     try:
         current_app.logger.info(f'GET /media/{media_id}')
-        media_list = _fetch_media("media_id = %s", (media_id,))
+        media_list = _fetch_media("m.media_id = %s", (media_id,))
 
         if not media_list:
             current_app.logger.info(f'Media with id {media_id} not found')
@@ -83,7 +98,7 @@ def get_media_by_id(media_id):
 def get_media_by_type(media_type):
     try:
         current_app.logger.info(f'GET /media/type/{media_type}')
-        media_list = _fetch_media("media_type = %s", (media_type,))
+        media_list = _fetch_media("m.media_type = %s", (media_type,))
 
         current_app.logger.info(f'Retrieved {len(media_list)} media of type {media_type}')
         return jsonify(media_list), 200
@@ -97,7 +112,7 @@ def get_media_by_type(media_type):
 def get_media_by_author(author_name):
     try:
         current_app.logger.info(f'GET /media/author/{author_name}')
-        media_list = _fetch_media("author LIKE %s", (f"%{author_name}%",))
+        media_list = _fetch_media("m.author LIKE %s", (f"%{author_name}%",))
 
         current_app.logger.info(f'Retrieved {len(media_list)} media by author {author_name}')
         return jsonify(media_list), 200
@@ -111,7 +126,7 @@ def get_media_by_author(author_name):
 def get_media_by_title(title_name):
     try:
         current_app.logger.info(f'GET /media/title/{title_name}')
-        media_list = _fetch_media("title LIKE %s", (f"%{title_name}%",))
+        media_list = _fetch_media("m.title LIKE %s", (f"%{title_name}%",))
 
         current_app.logger.info(f'Retrieved {len(media_list)} media with title matching {title_name}')
         return jsonify(media_list), 200

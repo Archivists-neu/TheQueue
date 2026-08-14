@@ -101,6 +101,9 @@ def media_search_nav():
 def friend_search_nav():
     st.sidebar.page_link("pages/friend-search.py", label="Friend Search", icon="🫂")
 
+def user_recs_nav():
+    st.sidebar.page_link("pages/user-recs.py", label="Recommendations", icon="💌")
+
 def profile_view_nav():
     st.sidebar.page_link("pages/user-profile.py", label="Profile", icon="👤")
 
@@ -165,6 +168,7 @@ def SideBarLinks(show_home=False):
             book_lover_home_nav()
             media_search_nav()
             friend_search_nav()
+            user_recs_nav()
             profile_view_nav()
 
         if st.session_state["role"] == "analyst":
@@ -184,6 +188,17 @@ def SideBarLinks(show_home=False):
 
     if st.session_state["authenticated"]:
         if st.sidebar.button("Logout"):
-            del st.session_state["role"]
-            del st.session_state["authenticated"]
+            # Drop the identity too, so the next login cannot inherit the
+            # previous account's user_id.
+            for key in [
+                "role",
+                "authenticated",
+                "user_id",
+                "first_name",
+                "last_name",
+                "email",
+                "status",
+            ]:
+                st.session_state.pop(key, None)
+
             st.switch_page("Home.py")

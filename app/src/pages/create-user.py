@@ -2,13 +2,43 @@ import datetime
 import streamlit as st
 import requests
 from modules.nav import SideBarLinks
-from shared.apifuncs import GetUsersApi 
+from shared.apifuncs import GetUsersApi
+from shared.social import FindUserByEmail, SignInUser
 
 st.set_page_config(layout='wide')
 
 SideBarLinks()
 
 st.title("Create Your User")
+
+
+# ------------------------------------------------------
+# SIGN BACK IN
+# ------------------------------------------------------
+
+# Logging in as an account that already exists keeps the friendships,
+# reviews and recommendations built up in earlier sessions.
+
+with st.expander("Already a user? Log in with your email"):
+
+    login_email = st.text_input(
+        "Email",
+        key="login_email",
+        placeholder="maya.lopez@gmail.com",
+    )
+
+    if st.button("Log In", key="login_button", use_container_width=True):
+
+        existing_user = FindUserByEmail(login_email)
+
+        if existing_user is None:
+            st.error(
+                f"No account found for '{login_email.strip()}'."
+            )
+
+        else:
+            SignInUser(existing_user)
+            st.switch_page("pages/book-lovers.py")
 
 if "show_success_modal" not in st.session_state:
     st.session_state.show_success_modal = False
@@ -78,9 +108,17 @@ with st.form(f"add_ngo_form_{st.session_state.form_key_counter}"):
                 if response.status_code == 201:
                     st.session_state.show_success_modal = True
                     st.session_state.success_user_name = f"{first_name} {last_name}"
-                    st.session_state['first_name'] = first_name
-                    st.session_state['last_name'] = last_name
-                    st.session_state['email'] = email
+
+                    # The API returns the new user_id. Every "my reviews" /
+                    # "my recommendations" page keys off this.
+                    SignInUser(
+                        {
+                            "user_id": response.json()["user_id"],
+                            "first_name": first_name,
+                            "last_name": last_name,
+                            "email": email,
+                        }
+                    )
                     st.rerun()
                 else:
                     st.error(

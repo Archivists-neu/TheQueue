@@ -13,7 +13,7 @@ CREATE TABLE location (
     country VARCHAR(75)
 );
 
-DROP TABLE IF EXISTS user;git 
+DROP TABLE IF EXISTS user;
 CREATE TABLE user (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     user_uuid CHAR(36) UNIQUE NOT NULL,

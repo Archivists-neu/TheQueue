@@ -259,7 +259,7 @@ else:
 
 
 # Back button
-if st.button("Back to Developer Dashboard"):
+if st.button("Back to Home"):
     st.switch_page(
-        "pages/10_Software_Developer_Home.py"
+        "pages/system-admin.py"
     )
